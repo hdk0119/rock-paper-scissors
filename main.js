@@ -55,6 +55,7 @@ function playGame() {
     let computerScore = 0;
 
     for (let i = 0; i < 5; i++){
+        
         alert(userInput);
 
         let result = playRound(playerChoice, computerChoice);
@@ -79,3 +80,4 @@ function playGame() {
     (playerScore > computerScore)? alert("You are the WINNER!") : alert("You have lost...\nReload the page to Play Again!");
 }
 
+playGame();
