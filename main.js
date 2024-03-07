@@ -1,79 +1,44 @@
-const userInput = prompt("Human VS PC!\n1: Rock  2: Paper  3: Scissors\nEnter your choice of attack!");
-//const attack = ["Rock", "Paper", "Scissors"];
-//const random = attack[Math.random() * attack.length | 0];
+let playerScore = 0;
+let computerScore = 0;
 
-function getComputerChoice() 
-{
-    let num = Math.floor(Math.random() * 3);
-    let choice;
-    switch (num) {
-        case 0:
-            choice = "rock";
-            break;
-    
-        case 1:
-            choice = "paper";
-            break;
+function getComputerChoice() {
+    const attack = ["rock", "paper", "scissors"];
+    let choice = Math.floor(Math.random() * 3);
 
-        case 2:
-            choice = "scissors";
-            break;
-    }
-
-    return choice;
+    return attack[choice];
 }
 
-let computerChoice = getComputerChoice();
-let playerChoice = userInput;
+function getPlayerChoice() {
+    let userInput = prompt("Human VS PC!\n1: Rock  2: Paper  3: Scissors\nEnter your choice of attack!").toLowerCase();
+
+    return userInput;
+}
 
 function playRound(playerChoice, computerChoice) {
-    playerChoice = userInput.toLowerCase();
-
-    if (playerChoice === computerChoice) return "Draw";
-    
-    if (playerChoice === "rock"){
-        if (computerChoice === "scissors"){
-            return true;
-        } else return false;
+    if (playerChoice !== "rock" && playerChoice !== "paper" && playerChoice !== "scissors") {
+        return alert(`Invalid input ${playerChoice}`);
     }
 
-    if (playerChoice === "paper"){
-        if (computerChoice === "rock"){
-            return true;
-        } else return false;
-    }
+    (playerChoice === computerChoice)? alert(`It's a Draw! Both chose ${playerChoice}`) : roundWin();
     
-    if (playerChoice === "scissors"){
-        if (computerChoice === "paper"){
-            return true;
-        } else return false;
+    function roundWin() {
+        let a = playerChoice;
+        let b = computerChoice;
+
+        if ((a === "rock" && b === "scissors") || (a === "PAPER" && b === "ROCK") || (a === "SCISSORS" && b === "ROCK")) {
+            alert(`You win ! ${a} beats ${b}`);
+            playerScore++;
+        } else {
+            alert(`You Lose ! ${b} beats ${a}`);
+            computerScore++;
+        }
     }
 }
 
 function playGame() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    for (let i = 0; i < 5; i++){
-        
-        alert(userInput);
-
-        let result = playRound(playerChoice, computerChoice);
-        let message = result? alert(`You win! ${playerChoice} beats ${computerChoice}`) :
-        alert(`You lose! ${computerChoice} beats ${playerChoice}\nBetter luck next time`);
-
-        if (result === "Draw") {
-            i--;
-            alert("It's a Draw! Try again.");
-            continue;
-        }
-
-        if (result) {
-            playerScore++;
-        } else computerScore++;
-
-        alert(message);
-        
+    for (let i = 1; i <= 5; i++) {
+        alert(`ROUND ${i}`);
+        console.log(playRound(getPlayerChoice(), getComputerChoice()));
         if (playerScore === 3 || computerScore === 3) break;
     }
 
